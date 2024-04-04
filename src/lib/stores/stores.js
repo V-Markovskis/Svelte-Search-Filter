@@ -8,3 +8,7 @@ export const retentionData = writable([]);
 export const filteredGames = writable([]);
 export const filteredVersions = writable([]);
 export const filteredCountries = writable([]);
+
+export const selectedGame = writable('All');
+export const selectedVersion = writable('All');
+export const selectedCountry = writable('All');
