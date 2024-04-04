@@ -1,12 +1,7 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { gamesData } from '$lib/stores/stores.js';
-	import { getAllGames } from '../FetchData/getAllGames.js';
 	import { selectedGame } from '$lib/stores/stores.js';
-
-	onMount(async () => {
-		gamesData.set(await getAllGames());
-	});
 
 	let games = [];
 
