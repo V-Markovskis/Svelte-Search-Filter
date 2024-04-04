@@ -5,6 +5,7 @@ export async function getAllRetentions() {
 			console.error(`HTTP error! Status: ${response.status}`);
 		}
 		const data = await response.json();
+		console.log('retention data', data);
 		return data;
 	} catch (error) {
 		console.error('Failed to fetch:', error);
