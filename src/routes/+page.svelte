@@ -22,19 +22,17 @@
 	<div class="container">
 		<select id="gameFilter">
 			<option value="all">All</option>
-			<!-- Здесь будут опции с играми -->
+			<!--			store filtered games-->
 		</select>
 
-		<!-- Фильтр Версии -->
 		<select id="versionFilter">
 			<option value="all">All</option>
-			<!-- Здесь будут опции с версиями -->
+			<!--			store filtered versions-->
 		</select>
 
-		<!-- Фильтр Страны -->
 		<select id="countryFilter">
 			<option value="all">All</option>
-			<!-- Здесь будут опции с странами -->
+			<!--			store filtered countries-->
 		</select>
 	</div>
 </div>
