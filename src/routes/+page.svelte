@@ -4,6 +4,7 @@
 	import { getAllRetentions } from '../FetchData/getAllRetentions.js';
 	import { gamesData, retentionData } from '../lib/stores/stores.js';
 	import GameFilter from '../components/GameFilter.svelte';
+	import VersionFilter from '../components/VersionFilter.svelte';
 
 	onMount(async () => {
 		gamesData.set(await getAllGames());
@@ -13,6 +14,7 @@
 
 <div class="container">
 	<GameFilter />
+	<VersionFilter />
 </div>
 
 <style>
