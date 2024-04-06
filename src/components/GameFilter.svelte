@@ -12,10 +12,12 @@
 	onDestroy(unsubscribe);
 </script>
 
-<select bind:value={$selectedGame}>
-	<option value="All">All</option>
-	{#each games as game}
-		<option value={game.app_id}>{game.name}</option>
-	{/each}
-</select>
-<div>{$selectedGame}</div>
+<div>
+	<span>Game Filter</span>
+	<select bind:value={$selectedGame}>
+		<option value="All">All</option>
+		{#each games as game}
+			<option value={game.app_id}>{game.name}</option>
+		{/each}
+	</select>
+</div>

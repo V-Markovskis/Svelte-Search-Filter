@@ -5,7 +5,6 @@ export async function getAllGames() {
 			console.error(`HTTP error! Status: ${response.status}`);
 		}
 		const data = await response.json();
-		console.log(data);
 		return data;
 	} catch (error) {
 		console.error('Failed to fetch:', error);

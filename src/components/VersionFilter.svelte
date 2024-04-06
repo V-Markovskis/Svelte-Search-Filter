@@ -2,27 +2,35 @@
 	import {
 		selectedGame,
 		retentionData,
-		filteredVersions,
-		selectedVersion
+		selectedVersion,
+		selectedCountry
 	} from '$lib/stores/stores.js';
-	import { onDestroy } from 'svelte';
+	import { derived } from 'svelte/store';
 
 	let versions = [];
 
-	const unsubscribe = selectedGame.subscribe(($selectedGame) => {
-		versions = $retentionData
-			.filter((item) => item.app_id === $selectedGame || $selectedGame === 'All')
-			.map((item) => item.app_ver);
+	export const filteredVersions = derived(
+		[selectedGame, selectedCountry, retentionData],
+		([$selectedGame, $selectedCountry, $retentionData]) => {
+			versions = $retentionData
+				.filter(
+					(item) =>
+						(item.app_id === $selectedGame || $selectedGame === 'All') &&
+						(item.country === $selectedCountry || $selectedCountry === 'All')
+				)
+				.map((item) => item.app_ver);
 
-		filteredVersions.set([...new Set(versions)]);
-	});
-
-	onDestroy(unsubscribe);
+			return [...new Set(versions)];
+		}
+	);
 </script>
 
-<select bind:value={$selectedVersion}>
-	<option value="All">All</option>
-	{#each $filteredVersions as version}
-		<option value={version}>{version}</option>
-	{/each}
-</select>
+<div>
+	<span>Version Filter</span>
+	<select bind:value={$selectedVersion}>
+		<option value="All">All</option>
+		{#each $filteredVersions as version}
+			<option value={version}>{version}</option>
+		{/each}
+	</select>
+</div>
