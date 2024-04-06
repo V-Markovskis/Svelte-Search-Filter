@@ -5,6 +5,7 @@
 	import { gamesData, retentionData } from '../lib/stores/stores.js';
 	import GameFilter from '../components/GameFilter.svelte';
 	import VersionFilter from '../components/VersionFilter.svelte';
+	import CountryFilter from '../components/CountryFilter.svelte';
 
 	onMount(async () => {
 		gamesData.set(await getAllGames());
@@ -15,14 +16,17 @@
 <div class="container">
 	<GameFilter />
 	<VersionFilter />
+	<CountryFilter />
 </div>
 
 <style>
 	.container {
 		margin-inline: auto;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
+		justify-content: center;
 		padding-top: 1.5rem;
+		gap: 20px;
 	}
 </style>
