@@ -7,12 +7,10 @@
 	} from '$lib/stores/stores.js';
 	import { derived } from 'svelte/store';
 
-	let versions = [];
-
 	export const filteredVersions = derived(
 		[selectedGame, selectedCountry, retentionData],
 		([$selectedGame, $selectedCountry, $retentionData]) => {
-			versions = $retentionData
+			const versions = $retentionData
 				.filter(
 					(item) =>
 						(item.app_id === $selectedGame || $selectedGame === 'All') &&

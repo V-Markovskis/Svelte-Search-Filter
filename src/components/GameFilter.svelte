@@ -1,22 +1,38 @@
 <script>
-	import { onDestroy } from 'svelte';
-	import { gamesData } from '$lib/stores/stores.js';
+	import {
+		gamesData,
+		retentionData,
+		selectedCountry,
+		selectedVersion
+	} from '$lib/stores/stores.js';
 	import { selectedGame } from '$lib/stores/stores.js';
+	import { derived } from 'svelte/store';
 
-	let games = [];
+	export const filteredGames = derived(
+		[selectedVersion, selectedCountry, retentionData, gamesData],
+		([$selectedVersion, $selectedCountry, $retentionData, $gamesData]) => {
+			const gameIds = $retentionData
+				.filter(
+					(item) =>
+						(item.app_ver === $selectedVersion || $selectedVersion === 'All') &&
+						(item.country === $selectedCountry || $selectedCountry === 'All')
+				)
+				.map((item) => item.app_id);
 
-	const unsubscribe = gamesData.subscribe((data) => {
-		games = data;
-	});
+			const filteredGameNames = $gamesData.filter((item) => {
+				return gameIds.includes(item.app_id);
+			});
 
-	onDestroy(unsubscribe);
+			return [...new Set(filteredGameNames)];
+		}
+	);
 </script>
 
 <div>
 	<span>Game Filter</span>
 	<select bind:value={$selectedGame}>
 		<option value="All">All</option>
-		{#each games as game}
+		{#each $filteredGames as game}
 			<option value={game.app_id}>{game.name}</option>
 		{/each}
 	</select>
