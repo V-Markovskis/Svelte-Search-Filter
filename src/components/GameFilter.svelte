@@ -43,70 +43,70 @@
 	);
 </script>
 
-<!--<div>-->
-<!--	<span>Game Filter</span>-->
-<!--	<select bind:value={$selectedGame}>-->
-<!--		<option value="All">All</option>-->
-<!--		{#each $filteredGames as game}-->
-<!--			<option value={game.app_id}>{game.name}</option>-->
-<!--		{/each}-->
-<!--	</select>-->
-<!--</div>-->
-
-<div class="dropdown" class:active={isOpen}>
+<div>
 	<span>Game Filter</span>
-	<button class="dropbtn" type="button" on:click={() => (isOpen = !isOpen)}
-		>{displayGameName}</button
-	>
-
-	{#if isOpen}
-		<div class="dropdown-content">
-			<button type="button" on:click={selectAll}>All</button>
-			{#each $filteredGames as game}
-				<div class="single-game">
-					<button type="button" on:click={() => selectGame(game)}>
-						<img src={game.icon} alt={game.name} />
-						<span>{game.name}</span>
-					</button>
-				</div>
-			{/each}
-		</div>
-	{/if}
+	<select bind:value={$selectedGame}>
+		<option value="All">All</option>
+		{#each $filteredGames as game}
+			<option value={game.app_id}>{game.name}</option>
+		{/each}
+	</select>
 </div>
 
-<style>
-	.dropdown {
-		position: relative;
-	}
+<!--<div class="dropdown" class:active={isOpen}>-->
+<!--	<span>Game Filter</span>-->
+<!--	<button class="dropbtn" type="button" on:click={() => (isOpen = !isOpen)}-->
+<!--		>{displayGameName}</button-->
+<!--	>-->
 
-	.dropdown-content {
-		position: absolute;
-		border: 1px solid black;
-	}
+<!--	{#if isOpen}-->
+<!--		<div class="dropdown-content">-->
+<!--			<button type="button" on:click={selectAll}>All</button>-->
+<!--			{#each $filteredGames as game}-->
+<!--				<div class="single-game">-->
+<!--					<button type="button" on:click={() => selectGame(game)}>-->
+<!--						<img src={game.icon} alt={game.name} />-->
+<!--						<span>{game.name}</span>-->
+<!--					</button>-->
+<!--				</div>-->
+<!--			{/each}-->
+<!--		</div>-->
+<!--	{/if}-->
+<!--</div>-->
 
-	.dropbtn {
-		border: 1px solid grey;
-		background: transparent;
-	}
+<!--<style>-->
+<!--	.dropdown {-->
+<!--		position: relative;-->
+<!--	}-->
 
-	.dropdown-content button {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		border: none;
-		background: transparent;
-		width: 100%;
-		padding: 10px;
-		text-align: left;
-	}
+<!--	.dropdown-content {-->
+<!--		position: absolute;-->
+<!--		border: 1px solid black;-->
+<!--	}-->
 
-	.dropdown-content img {
-		width: 40px;
-		height: 40px;
-	}
+<!--	.dropbtn {-->
+<!--		border: 1px solid grey;-->
+<!--		background: transparent;-->
+<!--	}-->
 
-	button:hover {
-		background-color: #5050cc;
-		color: white;
-	}
-</style>
+<!--	.dropdown-content button {-->
+<!--		display: flex;-->
+<!--		align-items: center;-->
+<!--		gap: 10px;-->
+<!--		border: none;-->
+<!--		background: transparent;-->
+<!--		width: 100%;-->
+<!--		padding: 10px;-->
+<!--		text-align: left;-->
+<!--	}-->
+
+<!--	.dropdown-content img {-->
+<!--		width: 40px;-->
+<!--		height: 40px;-->
+<!--	}-->
+
+<!--	button:hover {-->
+<!--		background-color: #5050cc;-->
+<!--		color: white;-->
+<!--	}-->
+<!--</style>-->

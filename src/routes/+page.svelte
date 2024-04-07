@@ -6,6 +6,7 @@
 	import GameFilter from '../components/GameFilter.svelte';
 	import VersionFilter from '../components/VersionFilter.svelte';
 	import CountryFilter from '../components/CountryFilter.svelte';
+	import SvelteSelectTest from '../components/SvelteSelectTest.svelte';
 
 	onMount(async () => {
 		gamesData.set(await getAllGames());
@@ -14,7 +15,8 @@
 </script>
 
 <div class="container">
-	<GameFilter />
+	<!--	<GameFilter />-->
+	<SvelteSelectTest />
 	<VersionFilter />
 	<CountryFilter />
 </div>
