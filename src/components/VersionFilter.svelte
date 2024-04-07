@@ -12,42 +12,42 @@
 	const filteredVersions = derived(
 		[selectedGame, selectedCountry, retentionData],
 		([$selectedGame, $selectedCountry, $retentionData]) => {
-			const versions = $retentionData
-				.filter(
-					(item) =>
-						(item.app_id === $selectedGame || $selectedGame === 'All') &&
-						(item.country === $selectedCountry || $selectedCountry === 'All')
-				)
-				.map((item) => ({
-					app_ver: item.app_ver,
-					devices: item.days[0]
-				}));
+			let versionSums = new Map();
 
-			return [...new Set(versions)];
+			$retentionData.forEach((item) => {
+				if (
+					(item.app_id === $selectedGame || $selectedGame === 'All') &&
+					(item.country === $selectedCountry || $selectedCountry === 'All')
+				) {
+					let currentSum = versionSums.get(item.app_ver) || 0;
+					versionSums.set(item.app_ver, currentSum + item.days[0]);
+				}
+			});
+
+			return Array.from(versionSums, ([value, devices]) => ({ value, devices }));
+
+			// const versions = $retentionData
+			// 	.filter(
+			// 		(item) =>
+			// 			(item.app_id === $selectedGame || $selectedGame === 'All') &&
+			// 			(item.country === $selectedCountry || $selectedCountry === 'All')
+			// 	)
+			// 	.map((item) => ({
+			// 		app_ver: item.app_ver,
+			// 		devices: item.days[0]
+			// 	}));
+			//
+			// return [...new Set(versions)];
 		}
 	);
 	let selectedValue;
 
 	let selectItems = [];
 	const unsubscribe = filteredVersions.subscribe(($filteredVersions) => {
-		if ($selectedGame === 'All' && $selectedCountry === 'All') {
-			selectItems = [];
-			$filteredVersions.forEach((item) => {
-				const existingVersionIndex = selectItems.findIndex((v) => v.value === item.app_ver);
-				if (existingVersionIndex !== -1) {
-					selectItems[existingVersionIndex].devices += item.devices;
-				} else {
-					selectItems.push({
-						value: item.app_ver,
-						devices: item.devices
-					});
-				}
-			});
-		}
-		// selectItems = $filteredVersions.map((item) => ({
-		// 	value: item.app_ver,
-		// 	devices: item.devices
-		// }));
+		selectItems = $filteredVersions.map((item) => ({
+			value: item.value,
+			devices: item.devices
+		}));
 	});
 
 	$: if (selectedValue) {
