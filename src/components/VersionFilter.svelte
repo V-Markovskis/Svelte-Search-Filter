@@ -25,19 +25,6 @@
 			});
 
 			return Array.from(versionSums, ([value, devices]) => ({ value, devices }));
-
-			// const versions = $retentionData
-			// 	.filter(
-			// 		(item) =>
-			// 			(item.app_id === $selectedGame || $selectedGame === 'All') &&
-			// 			(item.country === $selectedCountry || $selectedCountry === 'All')
-			// 	)
-			// 	.map((item) => ({
-			// 		app_ver: item.app_ver,
-			// 		devices: item.days[0]
-			// 	}));
-			//
-			// return [...new Set(versions)];
 		}
 	);
 	let selectedValue;
@@ -46,16 +33,15 @@
 	const unsubscribe = filteredVersions.subscribe(($filteredVersions) => {
 		selectItems = $filteredVersions.map((item) => ({
 			value: item.value,
+			label: item.value,
 			devices: item.devices
 		}));
 	});
 
 	$: if (selectedValue) {
 		selectedVersion.set(selectedValue.value);
-		console.log('selectedVersion', $selectedVersion);
 	} else {
 		selectedVersion.set('All');
-		console.log('selectedVersion', $selectedVersion);
 	}
 
 	onDestroy(unsubscribe);
