@@ -24,7 +24,9 @@
 				}
 			});
 
-			return Array.from(versionsAndDevices, ([version, devices]) => ({ version, devices }));
+			return Array.from(versionsAndDevices, ([version, devices]) => ({ version, devices })).sort(
+				(a, b) => parseFloat(b.version) - parseFloat(a.version)
+			);
 		}
 	);
 	let selectedValue;
