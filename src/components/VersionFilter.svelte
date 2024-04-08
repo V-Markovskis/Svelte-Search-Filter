@@ -12,19 +12,19 @@
 	const filteredVersions = derived(
 		[selectedGame, selectedCountry, retentionData],
 		([$selectedGame, $selectedCountry, $retentionData]) => {
-			let versionSums = new Map();
+			let versionsAndDevices = new Map();
 
 			$retentionData.forEach((item) => {
 				if (
 					(item.app_id === $selectedGame || $selectedGame === 'All') &&
 					(item.country === $selectedCountry || $selectedCountry === 'All')
 				) {
-					let currentSum = versionSums.get(item.app_ver) || 0;
-					versionSums.set(item.app_ver, currentSum + item.days[0]);
+					let currentSum = versionsAndDevices.get(item.app_ver) || 0;
+					versionsAndDevices.set(item.app_ver, currentSum + item.days[0]);
 				}
 			});
 
-			return Array.from(versionSums, ([value, devices]) => ({ value, devices }));
+			return Array.from(versionsAndDevices, ([version, devices]) => ({ version, devices }));
 		}
 	);
 	let selectedValue;
@@ -32,8 +32,8 @@
 	let selectItems = [];
 	const unsubscribe = filteredVersions.subscribe(($filteredVersions) => {
 		selectItems = $filteredVersions.map((item) => ({
-			value: item.value,
-			label: item.value,
+			value: item.version,
+			label: item.version,
 			devices: item.devices
 		}));
 	});

@@ -6,29 +6,54 @@
 		selectedVersion,
 		selectedCountry
 	} from '$lib/stores/stores.js';
+	import { onDestroy } from 'svelte';
+	import Select from 'svelte-select';
 
 	export const filteredCountries = derived(
 		[selectedGame, selectedVersion, retentionData],
 		([$selectedGame, $selectedVersion, $retentionData]) => {
-			const countries = $retentionData
-				.filter(
-					(item) =>
-						(item.app_id === $selectedGame || $selectedGame === 'All') &&
-						(item.app_ver === $selectedVersion || $selectedVersion === 'All')
-				)
-				.map((item) => item.country);
+			let countriesAndDevices = new Map();
 
-			return [...new Set(countries)];
+			$retentionData.forEach((item) => {
+				if (
+					(item.app_id === $selectedGame || $selectedGame === 'All') &&
+					(item.app_ver === $selectedVersion || $selectedVersion === 'All')
+				) {
+					let currentSum = countriesAndDevices.get(item.country) || 0;
+					countriesAndDevices.set(item.country, currentSum + item.days[0]);
+				}
+			});
+
+			return Array.from(countriesAndDevices, ([country, devices]) => ({ country, devices }));
 		}
 	);
+
+	let selectedValue;
+
+	let selectItems = [];
+	const unsubscribe = filteredCountries.subscribe(($filteredCountries) => {
+		selectItems = $filteredCountries.map((item) => ({
+			value: item.country,
+			label: item.country,
+			devices: item.devices
+		}));
+	});
+
+	$: if (selectedValue) {
+		selectedCountry.set(selectedValue.value);
+	} else {
+		selectedCountry.set('All');
+	}
+
+	onDestroy(unsubscribe);
 </script>
 
-<div>
-	<span>Country Filter</span>
-	<select bind:value={$selectedCountry}>
-		<option value="All">All</option>
-		{#each $filteredCountries as country}
-			<option value={country}>{country}</option>
-		{/each}
-	</select>
+<div class="container">
+	<span>Version Filter</span>
+	<Select bind:value={selectedValue} items={selectItems} placeholder="All">
+		<div slot="item" let:item>
+			<span>{item.value}</span>
+			<span>({item.devices})</span>
+		</div>
+	</Select>
 </div>
