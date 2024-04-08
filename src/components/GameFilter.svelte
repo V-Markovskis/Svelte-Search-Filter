@@ -21,13 +21,12 @@
 				)
 				.map((item) => item.app_id);
 
-			const filteredGameNames = $gamesData.filter((item) => {
-				return gameIds.includes(item.app_id);
-			});
-
-			return [...new Set(filteredGameNames)];
+			return $gamesData
+				.filter((item) => gameIds.includes(item.app_id))
+				.sort((a, b) => a.name.localeCompare(b.name));
 		}
 	);
+
 	let selectedValue;
 
 	let selectItems = [];
