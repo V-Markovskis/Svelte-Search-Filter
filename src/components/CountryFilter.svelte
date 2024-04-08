@@ -1,32 +1,8 @@
 <script>
-	import { derived } from 'svelte/store';
-	import {
-		retentionData,
-		selectedGame,
-		selectedVersion,
-		selectedCountry
-	} from '$lib/stores/stores.js';
+	import { selectedCountry } from '$lib/stores/stores.js';
+	import { filteredCountries } from '$lib/stores/derivedFilteredCountries.js';
 	import { onDestroy } from 'svelte';
 	import Select from 'svelte-select';
-
-	export const filteredCountries = derived(
-		[selectedGame, selectedVersion, retentionData],
-		([$selectedGame, $selectedVersion, $retentionData]) => {
-			let countriesAndDevices = new Map();
-
-			$retentionData.forEach((item) => {
-				if (
-					(item.app_id === $selectedGame || $selectedGame === 'All') &&
-					(item.app_ver === $selectedVersion || $selectedVersion === 'All')
-				) {
-					let currentSum = countriesAndDevices.get(item.country) || 0;
-					countriesAndDevices.set(item.country, currentSum + item.days[0]);
-				}
-			});
-
-			return Array.from(countriesAndDevices, ([country, devices]) => ({ country, devices }));
-		}
-	);
 
 	let selectedValue;
 
@@ -48,12 +24,28 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="container">
-	<span>Version Filter</span>
+<div class="container col-4">
+	<span>Country Filter</span>
 	<Select bind:value={selectedValue} items={selectItems} placeholder="All">
-		<div slot="item" let:item>
-			<span>{item.value}</span>
+		<div slot="item" let:item class="select-item">
+			<span title={item.value} class="trimmed-text">{item.value}</span>
 			<span>({item.devices})</span>
 		</div>
 	</Select>
 </div>
+
+<style>
+	.trimmed-text {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 150px;
+		display: inline-block;
+	}
+
+	.select-item {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+</style>

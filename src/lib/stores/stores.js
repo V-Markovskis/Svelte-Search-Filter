@@ -1,9 +1,8 @@
 // Store for the raw data
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 
 export const gamesData = writable([]);
 export const retentionData = writable([]);
-
 export const selectedGame = writable('All');
 export const selectedVersion = writable('All');
 export const selectedCountry = writable('All');

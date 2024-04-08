@@ -1,31 +1,8 @@
 <script>
 	import Select from 'svelte-select';
-	import {
-		selectedVersion,
-		selectedCountry,
-		retentionData,
-		gamesData,
-		selectedGame
-	} from '$lib/stores/stores.js';
-	import { derived } from 'svelte/store';
+	import { selectedGame } from '$lib/stores/stores.js';
+	import { filteredGames } from '$lib/stores/derivedFilteredGames.js';
 	import { onDestroy } from 'svelte';
-
-	const filteredGames = derived(
-		[selectedVersion, selectedCountry, retentionData, gamesData],
-		([$selectedVersion, $selectedCountry, $retentionData, $gamesData]) => {
-			const gameIds = $retentionData
-				.filter(
-					(item) =>
-						(item.app_ver === $selectedVersion || $selectedVersion === 'All') &&
-						(item.country === $selectedCountry || $selectedCountry === 'All')
-				)
-				.map((item) => item.app_id);
-
-			return $gamesData
-				.filter((item) => gameIds.includes(item.app_id))
-				.sort((a, b) => a.name.localeCompare(b.name));
-		}
-	);
 
 	let selectedValue;
 
@@ -47,7 +24,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="container">
+<div class="container col-4">
 	<span>Game Filter</span>
 	<Select bind:value={selectedValue} items={selectItems} placeholder="All">
 		<div slot="item" let:item class="select-item">

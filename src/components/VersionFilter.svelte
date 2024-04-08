@@ -1,34 +1,9 @@
 <script>
-	import {
-		selectedGame,
-		retentionData,
-		selectedVersion,
-		selectedCountry
-	} from '$lib/stores/stores.js';
-	import { derived } from 'svelte/store';
+	import { selectedVersion } from '$lib/stores/stores.js';
+	import { filteredVersions } from '$lib/stores/derivedFilteredVersions.js';
 	import { onDestroy } from 'svelte';
 	import Select from 'svelte-select';
 
-	const filteredVersions = derived(
-		[selectedGame, selectedCountry, retentionData],
-		([$selectedGame, $selectedCountry, $retentionData]) => {
-			let versionsAndDevices = new Map();
-
-			$retentionData.forEach((item) => {
-				if (
-					(item.app_id === $selectedGame || $selectedGame === 'All') &&
-					(item.country === $selectedCountry || $selectedCountry === 'All')
-				) {
-					let currentSum = versionsAndDevices.get(item.app_ver) || 0;
-					versionsAndDevices.set(item.app_ver, currentSum + item.days[0]);
-				}
-			});
-
-			return Array.from(versionsAndDevices, ([version, devices]) => ({ version, devices })).sort(
-				(a, b) => parseFloat(b.version) - parseFloat(a.version)
-			);
-		}
-	);
 	let selectedValue;
 
 	let selectItems = [];
@@ -49,7 +24,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="container">
+<div class="container col-4">
 	<span>Version Filter</span>
 	<Select bind:value={selectedValue} items={selectItems} placeholder="All">
 		<div slot="item" let:item>

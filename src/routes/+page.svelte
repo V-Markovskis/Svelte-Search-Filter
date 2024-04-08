@@ -6,6 +6,7 @@
 	import GameFilter from '../components/GameFilter.svelte';
 	import VersionFilter from '../components/VersionFilter.svelte';
 	import CountryFilter from '../components/CountryFilter.svelte';
+	import ContentTable from '../components/ContentTable.svelte';
 
 	onMount(async () => {
 		gamesData.set(await getAllGames());
@@ -17,6 +18,10 @@
 	<GameFilter />
 	<VersionFilter />
 	<CountryFilter />
+</div>
+
+<div class="container">
+	<ContentTable />
 </div>
 
 <style>
