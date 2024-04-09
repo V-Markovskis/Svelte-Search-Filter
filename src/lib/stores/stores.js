@@ -1,5 +1,4 @@
-// Store for the raw data
-import { derived, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export const gamesData = writable([]);
 export const retentionData = writable([]);
