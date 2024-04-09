@@ -15,23 +15,23 @@
 </script>
 
 <div class="container">
-	<GameFilter />
-	<VersionFilter />
-	<CountryFilter />
-</div>
-
-<div class="container">
-	<ContentTable />
+	<div class="header">
+		<GameFilter />
+		<VersionFilter />
+		<CountryFilter />
+	</div>
+	<div>
+		<ContentTable />
+	</div>
 </div>
 
 <style>
-	.container {
-		margin-inline: auto;
+	.header {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
 		padding-top: 1.5rem;
-		gap: 20px;
+		padding-bottom: 3rem;
 	}
 </style>

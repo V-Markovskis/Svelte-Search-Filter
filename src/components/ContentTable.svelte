@@ -1,6 +1,6 @@
 <script>
 	import { derivedRetentionsContent } from '$lib/stores/derivedRetentionsContent.js';
-	//
+
 	// $: console.log('derivedRetentionsContent.days', $derivedRetentionsContent);
 </script>
 
@@ -22,10 +22,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-					</tr>
+					{#each $derivedRetentionsContent as item, index}
+						<tr>
+							<td class="sticky first-col">{item.app_ver}</td>
+							<td class="sticky second-col">{item.country}</td>
+							{#each item.days as day, dayIndex (dayIndex)}
+								<td>{Math.round((day / item.days[0]) * 100)}%</td>
+							{/each}
+						</tr>
+					{/each}
 				</tbody>
 			</table>
 		</div>
