@@ -11,17 +11,19 @@
 		</div>
 	{:else}
 		<div class="table-container">
-			<table class="table table-responsive">
+			<table class="table">
 				<thead>
-					<tr>
-						<th scope="col">Version</th>
-						<th scope="col">Country</th>
+					<tr class="sticky first-row">
+						<th class="sticky first-col" scope="col">Version</th>
+						<th class="sticky second-col" scope="col">Country</th>
+						<!--eslint-disable-next-line no-unused-vars-->
 						{#each $derivedRetentionsContent[0].days as _, index}
 							<th>D{index}</th>
 						{/each}
 					</tr>
 				</thead>
 				<tbody>
+					<!--eslint-disable-next-line no-unused-vars-->
 					{#each $derivedRetentionsContent as item, index}
 						<tr>
 							<td class="sticky first-col">{item.app_ver}</td>
@@ -38,11 +40,36 @@
 </div>
 
 <style>
+	:root {
+		--first-col-width: 100px;
+		--second-col-width: 170px;
+	}
+
 	.table-container {
-		position: relative;
 		overflow: auto;
-		border: 1px solid black;
-		border-radius: 10px;
 		max-height: 800px;
+	}
+
+	.sticky {
+		position: sticky;
+	}
+
+	.first-row {
+		top: 0;
+		z-index: 1;
+	}
+
+	.first-col {
+		left: 0;
+		width: var(--first-col-width);
+		max-width: var(--first-col-width);
+		min-width: var(--first-col-width);
+	}
+
+	.second-col {
+		left: var(--first-col-width);
+		width: var(--second-col-width);
+		max-width: var(--second-col-width);
+		min-width: var(--second-col-width);
 	}
 </style>
