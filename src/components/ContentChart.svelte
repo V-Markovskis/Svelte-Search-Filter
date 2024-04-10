@@ -16,29 +16,31 @@
 			return acc;
 		}, {});
 
-		const datasets = Object.keys(dataByVersion).map((version) => {
-			//calculate retention (days) for each version
-			const versionData = dataByVersion[version];
-			//map each version
-			const retentionData = versionData.map((item) =>
-				indexes.map((index) =>
-					item.days[index] ? Math.round((item.days[index] / item.days[0]) * 100) : 0
-				)
-			);
+		const datasets = Object.keys(dataByVersion)
+			.sort((a, b) => parseFloat(b) - parseFloat(a))
+			.map((version) => {
+				//calculate retention (days) for each version
+				const versionData = dataByVersion[version];
+				//map each version
+				const retentionData = versionData.map((item) =>
+					indexes.map((index) =>
+						item.days[index] ? Math.round((item.days[index] / item.days[0]) * 100) : 0
+					)
+				);
 
-			// if the version contains multiple arrays - calculate average value
-			const aggregatedData = retentionData[0].map((_, index) => {
-				// sum each day[index] for each array
-				const sum = retentionData.reduce((acc, cur) => acc + cur[index], 0);
-				// calculating average value for each day
-				return Math.round(sum / retentionData.length);
+				// if the version contains multiple arrays - calculate average value
+				const aggregatedData = retentionData[0].map((_, index) => {
+					// sum each day[index] for each array
+					const sum = retentionData.reduce((acc, cur) => acc + cur[index], 0);
+					// calculating average value for each day
+					return Math.round(sum / retentionData.length);
+				});
+
+				return {
+					label: version,
+					data: aggregatedData
+				};
 			});
-
-			return {
-				label: version,
-				data: aggregatedData
-			};
-		});
 
 		return {
 			type: 'bar',

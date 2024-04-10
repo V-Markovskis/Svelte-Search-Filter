@@ -18,34 +18,42 @@
 </script>
 
 <div class="container">
-	<div class="header">
-		<GameFilter />
-		<VersionFilter />
-		<CountryFilter />
-	</div>
-	<div class="container button-container d-flex gap-3">
-		<Button
-			label="Table View"
-			disabled={displayTable}
-			onClick={() => {
-				displayTable = true;
-			}}
-		/>
-		<Button
-			label="Chart View"
-			disabled={!displayTable}
-			onClick={() => {
-				displayTable = false;
-			}}
-		/>
-	</div>
-	<div>
-		{#if displayTable}
-			<ContentTable />
-		{:else}
-			<ContentChart />
-		{/if}
-	</div>
+	{#if $gamesData.length === 0 || !$gamesData || $retentionData.length === 0 || !$retentionData}
+		<div class="d-flex justify-content-center mt-2">
+			<div class="spinner-border" role="status">
+				<span class="sr-only"></span>
+			</div>
+		</div>
+	{:else}
+		<div class="header">
+			<GameFilter />
+			<VersionFilter />
+			<CountryFilter />
+		</div>
+		<div class="container button-container d-flex gap-3">
+			<Button
+				label="Table View"
+				disabled={displayTable}
+				onClick={() => {
+					displayTable = true;
+				}}
+			/>
+			<Button
+				label="Chart View"
+				disabled={!displayTable}
+				onClick={() => {
+					displayTable = false;
+				}}
+			/>
+		</div>
+		<div>
+			{#if displayTable}
+				<ContentTable />
+			{:else}
+				<ContentChart />
+			{/if}
+		</div>
+	{/if}
 </div>
 
 <style>
