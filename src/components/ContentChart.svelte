@@ -54,6 +54,30 @@
 						beginAtZero: true,
 						max: 100
 					}
+				},
+				plugins: {
+					tooltip: {
+						callbacks: {
+							label: function (context) {
+								let label = context.dataset.label || '';
+								console.log('context', context);
+
+								if (context.parsed.y !== null) {
+									label += `: ${context.parsed.y}%`;
+								}
+								return label;
+							}
+						}
+					},
+					legend: {
+						title: {
+							display: true,
+							text: 'Versions',
+							font: {
+								size: 18
+							}
+						}
+					}
 				}
 			}
 		};
