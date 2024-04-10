@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"chart.js": "^4.4.2",
 		"jquery": "^3.7.1",
 		"select2": "^4.1.0-rc.0",
 		"svelte-select": "^5.8.3"

@@ -1,13 +1,13 @@
 <script>
 	import { derivedRetentionsContent } from '$lib/stores/derivedRetentionsContent.js';
-
-	// $: console.log('derivedRetentionsContent.days', $derivedRetentionsContent);
 </script>
 
 <div class="container">
 	{#if $derivedRetentionsContent.length === 0 || !$derivedRetentionsContent}
-		<div class="spinner-border" role="status">
-			<span class="sr-only"></span>
+		<div class="d-flex justify-content-center">
+			<div class="spinner-border" role="status">
+				<span class="sr-only"></span>
+			</div>
 		</div>
 	{:else}
 		<div class="table-container">
@@ -18,7 +18,7 @@
 						<th class="sticky second-col" scope="col">Country</th>
 						<!--eslint-disable-next-line no-unused-vars-->
 						{#each $derivedRetentionsContent[0].days as _, index}
-							<th>D{index}</th>
+							<th class="days-row">D{index}</th>
 						{/each}
 					</tr>
 				</thead>
@@ -57,6 +57,7 @@
 	.first-row {
 		top: 0;
 		z-index: 1;
+		background: rgb(128, 128, 128);
 	}
 
 	.first-col {
@@ -64,6 +65,7 @@
 		width: var(--first-col-width);
 		max-width: var(--first-col-width);
 		min-width: var(--first-col-width);
+		background: rgb(222, 191, 191);
 	}
 
 	.second-col {
@@ -71,5 +73,10 @@
 		width: var(--second-col-width);
 		max-width: var(--second-col-width);
 		min-width: var(--second-col-width);
+		background: rgb(222, 191, 191);
+	}
+
+	.days-row {
+		background: rgb(222, 191, 191);
 	}
 </style>
