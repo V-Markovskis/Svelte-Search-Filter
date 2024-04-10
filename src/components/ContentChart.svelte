@@ -26,17 +26,13 @@
 				)
 			);
 
-			console.log('retentionData', retentionData);
-
-			// if more than one version, show the average retention
+			// if the version contains multiple arrays - calculate average value
 			const aggregatedData = retentionData[0].map((_, index) => {
-				// sum each day[index] for calculating average value
+				// sum each day[index] for each array
 				const sum = retentionData.reduce((acc, cur) => acc + cur[index], 0);
 				// calculating average value for each day
 				return Math.round(sum / retentionData.length);
 			});
-
-			// console.log('aggregatedData', aggregatedData);
 
 			return {
 				label: version,

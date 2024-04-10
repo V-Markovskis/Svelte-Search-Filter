@@ -57,7 +57,7 @@
 	.first-row {
 		top: 0;
 		z-index: 1;
-		background: rgb(128, 128, 128);
+		background: rgb(222, 191, 191);
 	}
 
 	.first-col {

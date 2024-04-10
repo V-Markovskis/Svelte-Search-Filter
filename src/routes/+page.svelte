@@ -6,13 +6,15 @@
 	import GameFilter from '../components/GameFilter.svelte';
 	import VersionFilter from '../components/VersionFilter.svelte';
 	import CountryFilter from '../components/CountryFilter.svelte';
-	import ContentTable from '../components/ContentTable.svelte';
 	import ContentChart from '../components/ContentChart.svelte';
+	import ContentTable from '../components/ContentTable.svelte';
+	import Button from '../components/Button.svelte';
 
 	onMount(async () => {
 		gamesData.set(await getAllGames());
 		retentionData.set(await getAllRetentions());
 	});
+	let displayTable = true;
 </script>
 
 <div class="container">
@@ -21,11 +23,28 @@
 		<VersionFilter />
 		<CountryFilter />
 	</div>
-	<!--	<div>-->
-	<!--		<ContentTable />-->
-	<!--	</div>-->
+	<div class="container button-container d-flex gap-3">
+		<Button
+			label="Table View"
+			disabled={displayTable}
+			onClick={() => {
+				displayTable = true;
+			}}
+		/>
+		<Button
+			label="Chart View"
+			disabled={!displayTable}
+			onClick={() => {
+				displayTable = false;
+			}}
+		/>
+	</div>
 	<div>
-		<ContentChart />
+		{#if displayTable}
+			<ContentTable />
+		{:else}
+			<ContentChart />
+		{/if}
 	</div>
 </div>
 
@@ -36,6 +55,10 @@
 		align-items: center;
 		justify-content: center;
 		padding-top: 1.5rem;
-		padding-bottom: 3rem;
+		padding-bottom: 1.5rem;
+	}
+
+	.button-container {
+		padding-bottom: 1.5rem;
 	}
 </style>
