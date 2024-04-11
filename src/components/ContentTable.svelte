@@ -1,5 +1,15 @@
 <script>
 	import { derivedRetentionsContent } from '$lib/stores/derivedRetentionsContent.js';
+
+	let sortedDataToShow;
+
+	$: {
+		let copiedArray = [...$derivedRetentionsContent];
+		//sort by version
+		sortedDataToShow = copiedArray.sort((a, b) => {
+			return parseFloat(b.app_ver) - parseFloat(a.app_ver);
+		});
+	}
 </script>
 
 <div class="container">
@@ -17,14 +27,14 @@
 						<th class="sticky first-col" scope="col">Version</th>
 						<th class="sticky second-col" scope="col">Country</th>
 						<!--eslint-disable-next-line no-unused-vars-->
-						{#each $derivedRetentionsContent[0].days as _, index}
+						{#each sortedDataToShow[0].days as _, index}
 							<th class="days-row">D{index}</th>
 						{/each}
 					</tr>
 				</thead>
 				<tbody>
 					<!--eslint-disable-next-line no-unused-vars-->
-					{#each $derivedRetentionsContent as item, index}
+					{#each sortedDataToShow as item, index}
 						<tr>
 							<td class="sticky first-col">{item.app_ver}</td>
 							<td class="sticky second-col">{item.country}</td>

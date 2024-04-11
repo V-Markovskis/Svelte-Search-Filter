@@ -60,7 +60,6 @@
 						callbacks: {
 							label: function (context) {
 								let label = context.dataset.label || '';
-								console.log('context', context);
 
 								if (context.parsed.y !== null) {
 									label += `: ${context.parsed.y}%`;
