@@ -58,6 +58,7 @@
 	.table-container {
 		overflow: auto;
 		max-height: 800px;
+		border-radius: 10px;
 	}
 
 	.sticky {
@@ -68,6 +69,7 @@
 		top: 0;
 		z-index: 1;
 		background: rgb(222, 191, 191);
+		box-shadow: 0 0 10px 1px #755e4a;
 	}
 
 	.first-col {
@@ -88,5 +90,31 @@
 
 	.days-row {
 		background: rgb(222, 191, 191);
+	}
+
+	::-webkit-scrollbar {
+		-webkit-appearance: none;
+		background-color: #e3e3e3;
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+		border-bottom-left-radius: 4px;
+	}
+
+	::-webkit-scrollbar:vertical {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar:horizontal {
+		height: 10px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		border: 2px solid #e3e3e3;
+		background-color: #999;
+	}
+
+	::-webkit-resizer {
+		display: none;
 	}
 </style>
