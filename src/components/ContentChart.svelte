@@ -16,31 +16,28 @@
 			return acc;
 		}, {});
 
-		const datasets = Object.keys(dataByVersion)
-			.sort((a, b) => parseFloat(b) - parseFloat(a))
-			.map((version) => {
-				//calculate retention (days) for each version
-				const versionData = dataByVersion[version];
-				//map each version
-				const retentionData = versionData.map((item) =>
-					indexes.map((index) =>
-						item.days[index] ? Math.round((item.days[index] / item.days[0]) * 100) : 0
-					)
-				);
+		const datasets = Object.entries(dataByVersion).map(([version, versionData]) => {
+			const chartData = [];
 
-				// if the version contains multiple arrays - calculate average value
-				const aggregatedData = retentionData[0].map((_, index) => {
-					// sum each day[index] for each array
-					const sum = retentionData.reduce((acc, cur) => acc + cur[index], 0);
-					// calculating average value for each day
-					return Math.round(sum / retentionData.length);
+			versionData.forEach((item) => {
+				// take each days array for particular version
+				item.days.forEach((day, index) => {
+					if (indexes.includes(index)) {
+						//x and y already known to chart.js
+						chartData.push({
+							x: `D${index}`,
+							y: item.days[index] ? Math.round((day / item.days[0]) * 100) : 0,
+							country: item.country
+						});
+					}
 				});
-
-				return {
-					label: version,
-					data: aggregatedData
-				};
 			});
+
+			return {
+				label: version,
+				data: chartData
+			};
+		});
 
 		return {
 			type: 'bar',
@@ -59,6 +56,7 @@
 					tooltip: {
 						callbacks: {
 							label: function (context) {
+								console.log('context', context);
 								let label = context.dataset.label || '';
 
 								if (context.parsed.y !== null) {

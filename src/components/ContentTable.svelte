@@ -57,7 +57,7 @@
 
 	.table-container {
 		overflow: auto;
-		max-height: 800px;
+		max-height: 700px;
 		border-radius: 10px;
 	}
 
