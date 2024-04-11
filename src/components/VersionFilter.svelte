@@ -24,7 +24,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="container col-4">
+<div class="container">
 	<span>Version Filter</span>
 	<Select bind:value={selectedValue} items={selectItems} placeholder="All">
 		<div slot="item" let:item>

@@ -69,4 +69,10 @@
 	.button-container {
 		padding-bottom: 1.5rem;
 	}
+
+	@media (max-width: 600px) {
+		.header {
+			flex-direction: column;
+		}
+	}
 </style>
