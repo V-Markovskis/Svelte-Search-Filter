@@ -57,7 +57,13 @@
 						callbacks: {
 							label: function (context) {
 								console.log('context', context);
-								let label = context.dataset.label || '';
+								let label = context.dataset.label;
+								const dataCountry = context.raw.country;
+								console.log('dataCountry', dataCountry);
+
+								if (dataCountry) {
+									label += ` - ${dataCountry}`;
+								}
 
 								if (context.parsed.y !== null) {
 									label += `: ${context.parsed.y}%`;
