@@ -1,18 +1,19 @@
-# create-svelte
+## Brief Description
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+**This project is implemented using Svelte.** Learn more about Svelte [here](https://svelte.dev/docs/introduction).
 
-## Creating a project
+The svelte-search project allows you to fetch data from the following sources:
+- Games: [Games JSON](https://storage.googleapis.com/estoty-temp/games.json)
+- Retention: [Retention JSON](https://storage.googleapis.com/estoty-temp/retention.json)
 
-If you're seeing this, you've probably already done this step. Congrats!
+These data can be displayed either in a table format or as a chart. The chart is created using the Chart.js library ([Chart.js](https://www.chartjs.org/)).
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+The layout is implemented using Bootstrap. You can find more information about Bootstrap [here](https://getbootstrap.com/docs/5.3/getting-started/introduction/).
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+Users can utilize filters (Game, Version, Country) to explore more precise data.
+
+| <span style="color: green; font-size: 20px;">TIP: If you simply want to familiarize yourself and test the functionality of the application, please use this link:<br/>[Vercel Deployment](https://svelte-search-filter.vercel.app/) |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 ## Developing
 
@@ -25,14 +26,3 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
